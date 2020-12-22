@@ -9,6 +9,8 @@ const useref = require('gulp-useref');
 const gulpif = require('gulp-if');
 var replace = require('gulp-replace');
 var fs = require('fs');
+var sass = require('gulp-sass');
+sass.compiler = require('dart-sass');
 
 function cleanDist() {
   return del(['dist/*']);
@@ -62,4 +64,10 @@ function copyFonts() {
     .pipe(dest('dist/fonts/'));
 }
 
-exports.default = series(cleanDist, parallel(minifyJS, minifyImages, copyFonts, copyFavicons, series(updateScriptStyleReferences, minifyHTML)));
+function compileSassToCSS() {
+  return src('src/styles/*.{sass,scss}')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(dest('src/styles/'))
+}
+
+exports.default = series(cleanDist, parallel(minifyJS, minifyImages, copyFonts, copyFavicons, series(compileSassToCSS, updateScriptStyleReferences, minifyHTML)));
