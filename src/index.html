@@ -20,6 +20,40 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/af35f2bda3.js" crossorigin="anonymous"></script>
     <script src="script/slideMenu.js"></script>
+    <script>
+    $(document).ready(function() {
+      let vid = document.getElementById("home-video");
+      vid.play().then((value) => {
+        // Suceeded in playing initially
+        $('.play-button').click(function() {
+          $('.play-button').css('display', 'none');
+          $('.video-container-2').css('display', 'none');
+          vid.play();
+        });
+        vid.addEventListener('suspend', () => {
+          $('.play-button').css('display', 'block');
+          $('.video-container-2').css('display', 'block');
+        });
+        vid.addEventListener('play', () => {
+          $('.play-button').css('display', 'none');
+          $('.video-container-2').css('display', 'none');
+        });
+      }, reason => {
+        // Failed to play initially 
+        $('.play-button').css('display', 'block');
+        $('.video-container-2').css('display', 'block');
+        $('.play-button').click(function() {
+          $('.play-button').css('display', 'none');
+          $('.video-container-2').css('display', 'none');
+          vid.play();
+        });
+        window.addEventListener('blur', function() {
+          $('.play-button').css('display', 'block');
+          $('.video-container-2').css('display', 'block');
+        });
+      });
+    });
+    </script>
   </head>
   <body>
     <div id="sidenav-menu" class="sidenav">
@@ -65,11 +99,15 @@
       <div>
         <div>
           <div class="video-container">
-            <video class="covervid-video" autoplay muted loop playsinline width="1920" height="1080">
+            <video class="promo-video" autoplay muted loop playsinline width="1920" height="1080" id="home-video">
                 <source src="assets/promo1_compressed.mp4" type="video/mp4">
                 <source src="assets/promo1.webm" type="video/webm">
             </video>
             <h1 class="logo"><b>SPELLBOVND</b></h1>
+            <div class="play-button-container"><button class="play-button"><i class="fas fa-play me-2"></i>PLAY</button></div>
+          </div>
+          <div class="video-container-2">
+            <img class="promo-video" src="assets/video-still.png"/>
           </div>
           <div class="release-container text-center">
             <h2 class="mb-5 release-heading"><span class="release-title">NEED YOU</span> is out now!</h2>
