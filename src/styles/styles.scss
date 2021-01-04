@@ -62,6 +62,11 @@ FONTS
     font-weight: 100;
     font-style: normal;
 }
+@font-face {
+  font-family: 'arialblack';
+  src: url('../fonts/Arial-Black/arial-black.ttf');
+  font-style: normal;
+}
 
 /*
 ************************
@@ -430,7 +435,7 @@ footer {
   width: 45%;
 }
 .bio-title {
-  font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
+  font-family: arialblack, 'Arial Bold', Gadget, sans-serif;
   padding-bottom: 50px;
   text-align: center;
   @include scale(1.2, 1);
